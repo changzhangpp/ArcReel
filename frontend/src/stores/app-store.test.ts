@@ -12,10 +12,10 @@ describe("assistant panel state", () => {
     localStorage.clear();
   });
 
-  it("opens by default when no choice is remembered", async () => {
+  it("stays closed by default when no choice is remembered", async () => {
     const store = await reloadStore();
 
-    expect(store.getState().assistantPanelOpen).toBe(true);
+    expect(store.getState().assistantPanelOpen).toBe(false);
   });
 
   it.each([
@@ -33,9 +33,6 @@ describe("assistant panel state", () => {
 
   it("does not remember a programmatic expansion", async () => {
     const store = await reloadStore();
-    store.getState().toggleAssistantPanel();
-    expect(store.getState().assistantPanelOpen).toBe(false);
-
     store.getState().setAssistantPanelOpen(true);
     expect(store.getState().assistantPanelOpen).toBe(true);
 

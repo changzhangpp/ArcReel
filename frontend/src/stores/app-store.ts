@@ -250,7 +250,8 @@ export const useAppStore = create<AppState>((set, get) => ({
     })),
   clearWorkspaceNotifications: () => set({ workspaceNotifications: [] }),
 
-  assistantPanelOpen: readPersistedAssistantPanelOpen() ?? true,
+  // 旧版默认关闭：移动端全屏面板会盖住工作区，用户主动点顶栏 Agent 才展开
+  assistantPanelOpen: readPersistedAssistantPanelOpen() ?? false,
   toggleAssistantPanel: () =>
     set((s) => {
       const open = !s.assistantPanelOpen;
