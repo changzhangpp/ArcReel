@@ -416,7 +416,8 @@ export function WorkflowPanel({ projectName, episode, onViewUnit, onRegenerate, 
         >
           <ListChecks aria-hidden data-icon="inline-start" />
           <span className="shrink-0 font-medium text-foreground">{t("panel_title")}</span>
-          <span className="min-w-0 truncate text-muted-foreground">{headline}</span>
+          {/* 窄屏只留「制作进度」，摘要细节（如「视频：共 9 个…」）收进弹层，避免截断成「9...」让人费解 */}
+          <span className="hidden min-w-0 truncate text-muted-foreground @min-md/ep-page:inline">{headline}</span>
           {blockers.length > 0 && (
             <Badge variant="destructive">
               <span aria-hidden>{blockers.length}</span>

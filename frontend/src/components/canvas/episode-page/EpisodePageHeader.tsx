@@ -88,7 +88,7 @@ export function EpisodePageHeader({
         {/* 动作多到放不下时横向滚动；插槽靠右，溢出时从左端开始滚，不裁掉第一个动作。
             窄屏时动作区独占一行（编写提示词等整行出现），桌面端保持行内靠右 */}
         <div className="relative flex min-w-0 flex-1 basis-full overflow-x-auto scroll-fade-x @min-md/ep-page:basis-auto">
-          <div ref={onActionsSlot} className="ml-auto flex shrink-0 items-center gap-1.5" />
+          <div ref={onActionsSlot} className="flex shrink-0 items-center gap-1.5 @min-md/ep-page:ml-auto" />
         </div>
       </div>
     </header>

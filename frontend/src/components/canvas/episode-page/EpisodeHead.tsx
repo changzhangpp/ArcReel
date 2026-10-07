@@ -110,7 +110,8 @@ export function EpisodeHead({
       <p className="num flex min-w-0 shrink-[2] items-center gap-1.5 text-xs whitespace-nowrap text-muted-foreground">
         <span className="min-w-0 truncate">{facts.join(" · ")}</span>
         {costSummary ? (
-          <>
+          /* 窄屏不显示预估金额，桌面端保留（悬停提示里还有已花与剩余） */
+          <span className="hidden items-center gap-1.5 @min-md/ep-page:inline-flex">
             {facts.length > 0 ? <span aria-hidden>·</span> : null}
             <Tooltip>
               <TooltipTrigger
@@ -124,7 +125,7 @@ export function EpisodeHead({
               </TooltipTrigger>
               <TooltipContent>{costDetail}</TooltipContent>
             </Tooltip>
-          </>
+          </span>
         ) : null}
       </p>
       {canDelete ? (

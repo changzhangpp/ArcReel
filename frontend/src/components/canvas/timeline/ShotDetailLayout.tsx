@@ -58,20 +58,27 @@ export function ShotSection({
   htmlFor,
   actions,
   children,
+  compactTitle,
 }: {
   title: string;
   icon?: ReactNode;
   htmlFor?: string;
   actions?: ReactNode;
   children: ReactNode;
+  /** 窄屏只留图标，标题转 sr-only（仍保留无障碍名）。 */
+  compactTitle?: boolean;
 }) {
   const titleId = useId();
   const heading = htmlFor ? (
-    <label id={titleId} htmlFor={htmlFor} className="text-xs font-medium text-muted-foreground">
+    <label
+      id={titleId}
+      htmlFor={htmlFor}
+      className={`text-xs font-medium text-muted-foreground${compactTitle ? " @max-md/ep-page:sr-only" : ""}`}
+    >
       {title}
     </label>
   ) : (
-    <h3 id={titleId} className="text-xs font-medium text-muted-foreground">
+    <h3 id={titleId} className={`text-xs font-medium text-muted-foreground${compactTitle ? " @max-md/ep-page:sr-only" : ""}`}>
       {title}
     </h3>
   );

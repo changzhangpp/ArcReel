@@ -777,6 +777,7 @@ export function ShotDetail({
       <ShotSection
         title={t("detail_image_prompt_title")}
         icon={<ImageIcon aria-hidden className="size-3.5" />}
+        compactTitle
         actions={
           <>
             {imgValue && (
@@ -807,6 +808,7 @@ export function ShotDetail({
       <ShotSection
         title={t("detail_video_prompt_title")}
         icon={<Film aria-hidden className="size-3.5" />}
+        compactTitle
         actions={
           <>
             {vidValue && (
