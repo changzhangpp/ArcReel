@@ -50,7 +50,7 @@ export function LobbyHeader({ query, onQueryChange, onCreate, onImport, importin
         <>
           <Link href={ROUTE_APP_ASSETS} className={buttonVariants({ variant: "ghost" })}>
             <Library aria-hidden data-icon="inline-start" />
-            <span className="hidden @sm/page-header:inline">{t("assets:library_title")}</span>
+            <span className="hidden @lg/page-header:inline">{t("assets:library_title")}</span>
           </Link>
           <IconLink href={settingsSectionPath("external-agent")} label={t("dashboard:settings_external_agent")}>
             <Bot aria-hidden />
@@ -59,7 +59,7 @@ export function LobbyHeader({ query, onQueryChange, onCreate, onImport, importin
           <ButtonGroup>
             <Button onClick={onCreate} data-onboarding={ONBOARDING_ANCHORS.lobbyCreateProject}>
               <Plus aria-hidden data-icon="inline-start" />
-              <span className="hidden @sm/page-header:inline">{t("dashboard:lobby_new_project")}</span>
+              <span className="hidden @lg/page-header:inline">{t("dashboard:lobby_new_project")}</span>
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger
@@ -94,7 +94,8 @@ export function LobbyHeader({ query, onQueryChange, onCreate, onImport, importin
         </>
       }
     >
-      <div className="flex shrink-0 items-center gap-2 pl-1">
+      {/* 窄屏把品牌让位给搜索框：logo+名称只在宽容器展示 */}
+      <div className="hidden shrink-0 items-center gap-2 pl-1 @lg/page-header:flex">
         <img src="/logo.svg" alt="" className="size-7" />
         <span className="text-base font-medium">{BRAND.name}</span>
       </div>
@@ -113,7 +114,7 @@ export function LobbyHeader({ query, onQueryChange, onCreate, onImport, importin
           autoComplete="off"
           spellCheck={false}
         />
-        <InputGroupAddon align="inline-end" className="hidden @sm/page-header:flex">
+        <InputGroupAddon align="inline-end" className="hidden @lg/page-header:flex">
           <InputGroupText aria-hidden>{t("dashboard:lobby_search_kbd")}</InputGroupText>
         </InputGroupAddon>
       </InputGroup>

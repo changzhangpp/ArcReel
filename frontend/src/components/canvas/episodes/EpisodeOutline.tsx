@@ -77,7 +77,7 @@ export function EpisodeOutline({ view, episodes, current, onLocate, onLocateFile
     <nav
       ref={listRef}
       aria-label={t("episodes_outline_label")}
-      className="relative flex w-[clamp(240px,26cqw,300px)] shrink-0 flex-col gap-4 overflow-y-auto border-r px-2 py-3"
+      className="relative flex max-h-44 w-full shrink-0 flex-col gap-4 overflow-y-auto border-b px-2 py-3 @min-[44rem]/episodes:max-h-none @min-[44rem]/episodes:w-[clamp(240px,26cqw,300px)] @min-[44rem]/episodes:border-b-0 @min-[44rem]/episodes:border-r"
     >
       {groups.map((group) => (
         <section key={group.file.source_file} aria-label={group.file.name} className="flex flex-col gap-0.5">

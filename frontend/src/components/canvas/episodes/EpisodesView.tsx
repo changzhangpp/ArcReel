@@ -245,7 +245,7 @@ export function EpisodesView({ projectName }: { projectName: string }) {
   const replanPending = view.replan !== null;
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
+    <div className="@container/episodes flex min-h-0 flex-1 flex-col">
       <EpisodesHeader
         projectName={projectName}
         view={view}
@@ -260,7 +260,8 @@ export function EpisodesView({ projectName }: { projectName: string }) {
         episodes={episodes}
         onChanged={reload}
       />
-      <div className="flex min-h-0 flex-1">
+      {/* 窄屏上下堆叠：集卡大纲限高在上，原文占满剩余宽度；宽容器恢复左右分栏 */}
+      <div className="flex min-h-0 flex-1 flex-col @min-[44rem]/episodes:flex-row">
         {!replanPending && episodes.length > 0 ? (
           <EpisodeOutline
             view={view}

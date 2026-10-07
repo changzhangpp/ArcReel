@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
-import { X } from "lucide-react";
 import { useIsMobileViewport } from "@/hooks/useMediaQuery";
 import { usePanelRef, type LayoutChangedMeta, type PanelSize } from "react-resizable-panels";
 import { cn } from "cn";
@@ -256,17 +255,6 @@ export function StudioLayout({ children }: StudioLayoutProps) {
             aria-label={t("agent_panel_label")}
             className="absolute inset-0 z-40 flex flex-col bg-background"
           >
-            {/* 上一版同款：右上角常驻关闭按钮，不依赖面板内容自己的收起入口；演示模式面板是强制的，不给关闭 */}
-            {!demoMode && (
-              <button
-                type="button"
-                onClick={toggleAssistantPanel}
-                aria-label={t("collapse_panel")}
-                className="absolute top-3 right-3 z-10 grid size-8 place-items-center rounded-md bg-muted/80 text-muted-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-              >
-                <X aria-hidden className="size-4" />
-              </button>
-            )}
             {demoMode ? <DemoAssistantPanel /> : <AgentCopilot />}
           </aside>
         )}

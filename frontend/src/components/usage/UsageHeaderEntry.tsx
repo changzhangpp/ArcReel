@@ -64,9 +64,9 @@ export function UsageHeaderEntry({ projectName }: { projectName: string }) {
           data-icon="inline-start"
           className={activeCount > 0 ? "animate-breath text-primary" : "text-muted-foreground"}
         />
-        <span className="num hidden font-medium @sm/header:inline">{primaryText}</span>
+        <span className="num hidden font-medium @lg/header:inline">{primaryText}</span>
         {others.map(([currency, amount]) => (
-          <span key={currency} className="num hidden text-xs font-normal text-muted-foreground @sm/header:inline">
+          <span key={currency} className="num hidden text-xs font-normal text-muted-foreground @lg/header:inline">
             {formatCurrencyAmount(currency, amount)}
           </span>
         ))}

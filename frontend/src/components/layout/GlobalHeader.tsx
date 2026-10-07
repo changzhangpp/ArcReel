@@ -96,7 +96,7 @@ export function GlobalHeader() {
   };
 
   return (
-    <header className="@container/header grid h-12 shrink-0 grid-cols-[minmax(0,1fr)_auto_minmax(min-content,1fr)] items-center gap-3 border-b border-border bg-background px-2">
+    <header className="@container/header grid h-12 shrink-0 grid-cols-[minmax(0,1fr)_minmax(min-content,1fr)] items-center gap-3 border-b border-border bg-background px-2 @md/header:grid-cols-[minmax(0,1fr)_auto_minmax(min-content,1fr)]">
       <div className="flex min-w-0 items-center gap-1">
         <Button
           variant="ghost"
@@ -109,7 +109,7 @@ export function GlobalHeader() {
         </Button>
         <Link href={`~${ROUTE_APP_PROJECTS}`} className={buttonVariants({ variant: "ghost", size: "sm" })}>
           <ChevronLeft aria-hidden data-icon="inline-start" />
-          <span className="hidden @sm/header:inline">{t("dashboard:projects")}</span>
+          <span className="hidden @lg/header:inline">{t("dashboard:projects")}</span>
         </Link>
         <span aria-hidden className="h-4 w-px shrink-0 bg-border" />
         <ProjectMenu />
