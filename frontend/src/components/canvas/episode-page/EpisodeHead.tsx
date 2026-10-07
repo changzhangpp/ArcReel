@@ -99,7 +99,8 @@ export function EpisodeHead({
           number: position === null ? "—" : String(position).padStart(2, "0"),
         })}
       </Badge>
-      <div className="min-w-0 max-w-[24em] shrink">
+      {/* 窄屏标题吃满剩余宽度，把「⋯」菜单推到行尾；桌面端保持内容自适应（上限 24em） */}
+      <div className="min-w-0 max-w-[24em] shrink @max-md/ep-page:max-w-none @max-md/ep-page:flex-1">
         <EditableEpisodeTitle
           title={meta?.title ?? ""}
           placeholder={episodeDisplayName(ledger, episode, t)}
