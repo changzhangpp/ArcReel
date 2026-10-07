@@ -32,6 +32,7 @@ interface PageShellProps {
  * （限宽与铺满档）或全出血区段的各栏里。
  *
  * 外壳是唯一按视口切换标准档与紧凑档的地方（`xl`，1280）：侧栏 224 / 200px，内容内边距 32 / 24px。
+ * 侧栏自身的窄屏形态（顶部横向滑动条）由 PageSidebar 按 `md` 视口切换，这里不做分支。
  * 内容列是名为 `page` 的尺寸容器，区段内部按 `@md/page:` 这类容器查询响应宽度。
  *
  * 限宽与铺满档在主体下方有一行固定的保存栏，区段用 `PageShellFooter` 把保存栏渲染进来；
@@ -49,9 +50,9 @@ export function PageShell({ header, sidebar, tier, children }: PageShellProps) {
     // 不会逃出滚动容器把文档撑高。
     <div className="relative flex h-dvh flex-col overflow-hidden text-foreground">
       {header}
-      <div className="flex min-h-0 flex-1">
+      <div className="flex min-h-0 flex-1 flex-col md:flex-row">
         {sidebar}
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
           <FooterSlotContext.Provider value={footerSlot}>
             {tier === "bleed" ? (
               <main className="@container/page relative flex min-h-0 min-w-0 flex-1 flex-col">{children}</main>

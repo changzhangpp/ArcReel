@@ -44,13 +44,14 @@ export function AgentPanelToggle() {
             size="sm"
             pressed={open}
             onPressedChange={toggle}
+            aria-label={t("agent_panel_toggle")}
             aria-controls={AGENT_PANEL_ID}
             aria-describedby={statusText ? statusId : undefined}
           />
         }
       >
         <Bot data-icon="inline-start" aria-hidden />
-        {t("agent_panel_toggle")}
+        <span className="hidden @lg/header:inline">{t("agent_panel_toggle")}</span>
         {status && (
           <span
             aria-hidden

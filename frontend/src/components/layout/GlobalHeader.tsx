@@ -116,7 +116,7 @@ export function GlobalHeader() {
         {demoMode && <DemoReadOnlyBadge />}
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center @max-md/header:hidden">
         {currentProjectName ? <ProjectStatusBar key={currentProjectName} projectName={currentProjectName} /> : null}
       </div>
 
@@ -143,7 +143,9 @@ export function GlobalHeader() {
               ) : (
                 <Download aria-hidden data-icon="inline-start" />
               )}
-              {exporting ? t("dashboard:exporting_zip") : t("dashboard:export_zip")}
+              <span className="hidden @lg/header:inline">
+                {exporting ? t("dashboard:exporting_zip") : t("dashboard:export_zip")}
+              </span>
             </TooltipTrigger>
             <TooltipContent side="bottom">
               {demoMode ? t("onboarding:demo_action_unavailable") : t("dashboard:export_project_zip")}

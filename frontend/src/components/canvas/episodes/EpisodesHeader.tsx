@@ -51,13 +51,13 @@ export function EpisodesHeader({ projectName, view, episodeCount, planning, onUp
   else planLabel = t("episode_planning_start");
 
   return (
-    <header className="@container/episodes-header flex h-12 shrink-0 items-center gap-3 border-b px-4">
+    <header className="@container/episodes-header flex min-h-12 shrink-0 flex-wrap items-center gap-x-3 gap-y-1 border-b px-4 py-1">
       <h2 className="shrink-0 text-base font-semibold text-foreground">{t("workspace_nav_episodes")}</h2>
       <span className="num shrink-0 text-xs text-muted-foreground">
         {t("episodes_view_episode_count", { count: episodeCount })}
       </span>
       {hasSource ? (
-        <div className="flex min-w-0 items-center gap-2 text-xs text-muted-foreground">
+        <div className="hidden min-w-0 items-center gap-2 text-xs text-muted-foreground @min-[40rem]/episodes-header:flex">
           <Progress value={percent} aria-label={t("episodes_view_progress_label")} className="w-20 shrink-0" />
           <span className="num hidden truncate @min-[52rem]/episodes-header:inline">
             {t("episodes_view_progress", {
@@ -76,6 +76,7 @@ export function EpisodesHeader({ projectName, view, episodeCount, planning, onUp
                 variant={remaining > 0 && !planning && !replanPending ? "secondary" : "ghost"}
                 size="sm"
                 disabled={replanPending}
+                aria-label={planLabel}
               />
             }
           >
@@ -84,7 +85,7 @@ export function EpisodesHeader({ projectName, view, episodeCount, planning, onUp
             ) : (
               <Sparkles aria-hidden data-icon="inline-start" />
             )}
-            {planLabel}
+            <span className="hidden @min-[36rem]/episodes-header:inline">{planLabel}</span>
             <ChevronDown aria-hidden data-icon="inline-end" />
           </PopoverTrigger>
           <PopoverContent align="end" className="w-80">
@@ -102,9 +103,9 @@ export function EpisodesHeader({ projectName, view, episodeCount, planning, onUp
         <span className="hidden @min-[44rem]/episodes-header:inline">{t("episode_create_title")}</span>
       </Button>
       <ButtonGroup>
-        <Button size="sm" onClick={() => onUpload("whole_source")}>
+        <Button size="sm" onClick={() => onUpload("whole_source")} aria-label={t("source_upload_title")}>
           <Upload aria-hidden data-icon="inline-start" />
-          {t("source_upload_title")}
+          <span className="hidden @min-[36rem]/episodes-header:inline">{t("source_upload_title")}</span>
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger render={<Button size="icon-sm" aria-label={t("episodes_header_upload_modes")} />}>

@@ -31,12 +31,12 @@ interface PageSidebarProps {
   replace?: boolean;
 }
 
-/** 页面外壳的侧栏：贴左、独立滚动，标准档 224px、紧凑档 200px。 */
+/** 页面外壳的侧栏：窄屏折成顶部横向滑动的分区条，md 起贴左独立滚动（200px，xl 起 224px）。 */
 export function PageSidebar({ label, groups, activeId, replace }: PageSidebarProps) {
   return (
     <nav
       aria-label={label}
-      className="relative flex w-50 shrink-0 flex-col gap-5 overflow-y-auto border-r border-border px-3 py-4 xl:w-56"
+      className="relative flex w-full shrink-0 gap-1.5 overflow-x-auto border-b border-border px-3 py-3 md:w-50 md:flex-col md:gap-5 md:overflow-x-hidden md:overflow-y-auto md:border-b-0 md:border-r md:py-4 xl:w-56"
     >
       {groups.map((group) => (
         <SidebarGroup key={group.id} group={group} activeId={activeId} replace={replace} />
@@ -56,13 +56,14 @@ function SidebarGroup({
 }) {
   const labelId = useId();
   return (
-    <div className="flex flex-col gap-1">
+    // 窄屏：组内条目连成一行滑动，组标题隐藏；md 起恢复竖排
+    <div className="flex shrink-0 gap-1.5 md:block md:shrink">
       {group.label && (
-        <p id={labelId} className="px-2 text-xs font-medium text-muted-foreground">
+        <p id={labelId} className="hidden px-2 pb-1 text-xs font-medium text-muted-foreground md:block">
           {group.label}
         </p>
       )}
-      <ul aria-labelledby={group.label ? labelId : undefined} className="flex flex-col gap-0.5">
+      <ul aria-labelledby={group.label ? labelId : undefined} className="flex gap-1.5 md:flex-col md:gap-0.5">
         {group.items.map((item) => {
           const active = item.id === activeId;
           const Icon = item.icon;
@@ -74,10 +75,11 @@ function SidebarGroup({
                 aria-current={active ? "page" : undefined}
                 data-onboarding={item.onboardingAnchor}
                 className={cn(
-                  "flex min-h-8 items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
+                  "flex min-h-8 shrink-0 items-center gap-2 whitespace-nowrap rounded-md border px-2.5 py-1.5 text-sm transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
+                  "md:w-full md:whitespace-normal md:border-0 md:px-2",
                   active
-                    ? "bg-primary/15 text-foreground"
-                    : "text-subtle-foreground hover:bg-muted/50 hover:text-foreground",
+                    ? "border-primary/30 bg-primary/15 text-foreground"
+                    : "border-border text-subtle-foreground hover:bg-muted/50 hover:text-foreground",
                 )}
               >
                 <Icon aria-hidden className={cn("size-4 shrink-0", active ? "text-primary" : "text-muted-foreground")} />
