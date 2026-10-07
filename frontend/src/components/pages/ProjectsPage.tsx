@@ -138,9 +138,8 @@ function NowEditingCard({ project, styleLabel, phaseLabels, t }: NowEditingCardP
 
   return (
     <article
-      className="grid overflow-hidden rounded-[14px] border border-hairline bg-bg-grad-a"
+      className="grid grid-cols-1 overflow-hidden rounded-[14px] border border-hairline bg-bg-grad-a md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]"
       style={{
-        gridTemplateColumns: "minmax(0, 1.4fr) minmax(0, 1fr)",
         boxShadow:
           "0 30px 80px -40px oklch(0 0 0 / 0.7), inset 0 1px 0 oklch(1 0 0 / 0.04)",
       }}
@@ -148,7 +147,7 @@ function NowEditingCard({ project, styleLabel, phaseLabels, t }: NowEditingCardP
       <div className="p-3.5">
         <Poster project={project} styleLabel={styleLabel} large />
       </div>
-      <div className="relative flex flex-col px-7 pb-6 pt-6">
+      <div className="relative flex flex-col px-4 pb-5 pt-5 sm:px-7 sm:pb-6 sm:pt-6">
         <span
           aria-hidden
           className="font-editorial pointer-events-none absolute right-[-6px] top-2 italic"
@@ -176,7 +175,7 @@ function NowEditingCard({ project, styleLabel, phaseLabels, t }: NowEditingCardP
           className="font-editorial relative mt-3 mb-1"
           style={{
             fontWeight: 400,
-            fontSize: 36,
+            fontSize: "clamp(28px, 8vw, 36px)",
             lineHeight: 1,
             letterSpacing: "-0.012em",
             color: "var(--color-text)",
@@ -260,7 +259,7 @@ function NowEditingCard({ project, styleLabel, phaseLabels, t }: NowEditingCardP
         <div className="relative mt-4 flex justify-end">
           <Link
             href={`/app/projects/${project.name}`}
-            className="inline-flex items-center gap-2 rounded-[7px] px-4 py-2.5 text-[12px] font-semibold no-underline transition-transform motion-safe:hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-[7px] px-4 py-2.5 text-[12px] font-semibold no-underline transition-transform motion-safe:hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:w-auto"
             style={ACCENT_BUTTON_STYLE}
           >
             {phase === "completed"

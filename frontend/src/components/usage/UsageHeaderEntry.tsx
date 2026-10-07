@@ -75,9 +75,9 @@ export function UsageHeaderEntry({ projectName }: { projectName: string }) {
           className={"h-3.5 w-3.5" + (activeCount > 0 ? " animate-breathe" : "")}
           style={{ color: activeCount > 0 ? "var(--color-accent-2)" : "var(--color-text-3)" }}
         />
-        <span className="num font-medium">{primaryText}</span>
+        <span className="num hidden font-medium sm:inline">{primaryText}</span>
         {others.map(([currency, amount]) => (
-          <span key={currency} className="num text-[10.5px] text-text-4">
+          <span key={currency} className="num hidden text-[10.5px] text-text-4 sm:inline">
             {formatCurrencyAmount(currency, amount)}
           </span>
         ))}

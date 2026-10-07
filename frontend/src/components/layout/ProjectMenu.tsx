@@ -45,7 +45,7 @@ export function ProjectMenu() {
   const modeTagline = aspectRatio ? `${modeLabel} · ${aspectRatio}` : modeLabel;
 
   return (
-    <div ref={ref} className="relative min-w-0">
+    <div ref={ref} className="relative min-w-0 flex-1">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -69,7 +69,7 @@ export function ProjectMenu() {
         >
           {initial}
         </div>
-        <div className="min-w-0 text-left">
+        <div className="min-w-0 flex-1 text-left">
           <div
             className="display-serif truncate text-[13.5px] font-semibold leading-[1.15]"
             style={{ letterSpacing: "-0.1px" }}

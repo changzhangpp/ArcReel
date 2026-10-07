@@ -286,8 +286,8 @@ export function UsagePopover({ projectName, anchorRef, panelId }: UsagePopoverPr
         ) : (
           <>
             <KpiStrip summary={summary} />
-            <div className="flex" style={{ maxHeight: COLUMNS_MAX_HEIGHT }}>
-              <section className="flex w-[18rem] shrink-0 flex-col border-r border-hairline-soft">
+            <div className="flex flex-col md:flex-row" style={{ maxHeight: COLUMNS_MAX_HEIGHT }}>
+              <section className="flex min-h-0 flex-col border-b border-hairline-soft md:w-[18rem] md:shrink-0 md:border-b-0 md:border-r">
                 <div className="flex items-center gap-2 px-3 py-2">
                   <h4 className={SECTION_HEAD_CLS}>{t("usage_in_progress")}</h4>
                   <span className="num text-[10px] text-text-4">{activeRows.length}</span>
@@ -326,7 +326,7 @@ export function UsagePopover({ projectName, anchorRef, panelId }: UsagePopoverPr
                 </div>
               </section>
 
-              <section className="flex min-w-0 flex-1 flex-col">
+              <section className="flex min-h-0 min-w-0 flex-1 flex-col">
                 <div className="px-3 py-2">
                   <h4 className={SECTION_HEAD_CLS}>{t("usage_recently_finished")}</h4>
                 </div>
