@@ -13,13 +13,15 @@ interface PageHeaderProps {
   children?: ReactNode;
   /** 靠右的页面级动作。 */
   actions?: ReactNode;
+  /** 追加到动作容器的类；如 `basis-full` 让动作在窄屏独占一行。 */
+  actionsClassName?: string;
 }
 
 /**
  * 页面外壳的顶栏，高 56px：「返回 | 标题 | 副标题」成组靠左，返回箭头与侧栏图标在同一条竖线上，
  * 页面级动作靠右。
  */
-export function PageHeader({ back, title, subtitle, children, actions }: PageHeaderProps) {
+export function PageHeader({ back, title, subtitle, children, actions, actionsClassName }: PageHeaderProps) {
   return (
     <header className="@container/page-header flex min-h-14 shrink-0 flex-wrap items-center gap-3 border-b border-border pr-6 pl-3 xl:pr-8">
       <div className="flex min-w-0 flex-1 items-center gap-3">
@@ -42,7 +44,9 @@ export function PageHeader({ back, title, subtitle, children, actions }: PageHea
         )}
         {children}
       </div>
-      {actions && <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">{actions}</div>}
+      {actions && (
+        <div className={`flex shrink-0 flex-wrap items-center justify-end gap-2 ${actionsClassName ?? ""}`}>{actions}</div>
+      )}
     </header>
   );
 }

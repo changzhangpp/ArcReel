@@ -88,7 +88,7 @@ export function AssetLibraryPage() {
   const createButton = (
     <Button onClick={() => setCreatingType(activeTab)}>
       <Plus aria-hidden data-icon="inline-start" />
-      <span className="hidden @min-md/page-header:inline">{t("add_asset")}</span>
+      {t("add_asset")}
     </Button>
   );
 
@@ -100,9 +100,10 @@ export function AssetLibraryPage() {
           back={{ label: t("common:back"), onClick: goBack }}
           title={t("library_title")}
           subtitle={t("library_subtitle")}
+          actionsClassName="basis-full @min-md/page-header:basis-auto"
           actions={
             <>
-              <InputGroup className="w-0 min-w-32 flex-1 @min-md/page-header:w-56 @min-md/page-header:min-w-0 @min-md/page-header:flex-none">
+              <InputGroup className="flex-1 @min-md/page-header:w-56 @min-md/page-header:flex-none">
                 <InputGroupAddon>
                   <Search aria-hidden />
                 </InputGroupAddon>
