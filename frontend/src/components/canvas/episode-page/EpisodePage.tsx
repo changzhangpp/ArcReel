@@ -31,7 +31,7 @@ import {
   type EpisodeView,
   type EpisodeViewFacts,
 } from "./episode-view";
-import { EpisodeHead } from "./EpisodeHead";
+import { EpisodeHead, EpisodeHeadFacts } from "./EpisodeHead";
 import { EpisodeHeaderActions, EpisodeHeaderSlotProvider } from "./EpisodeHeaderActions";
 import { EpisodePageHeader, episodeViewTabId } from "./EpisodePageHeader";
 import { EpisodeViewFactsProvider } from "./EpisodeViewScope";
@@ -231,6 +231,7 @@ function EpisodePageContent({
               />
             )
           }
+          progressAside={demo ? null : <EpisodeHeadFacts meta={meta} route={route} />}
           tabs={tabs}
           view={view}
           onViewChange={changeView}

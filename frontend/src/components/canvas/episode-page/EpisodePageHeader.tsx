@@ -40,6 +40,7 @@ function DisabledViewTab({ view, label }: { view: EpisodeView; label: string }) 
 export function EpisodePageHeader({
   head,
   progress,
+  progressAside,
   tabs,
   view,
   onViewChange,
@@ -49,6 +50,8 @@ export function EpisodePageHeader({
   head: ReactNode;
   /** 制作进度入口；演示项目没有。 */
   progress: ReactNode;
+  /** 制作进度行右侧的附加信息（窄屏的集事实）；桌面端随 progress 行内显示。 */
+  progressAside?: ReactNode;
   tabs: EpisodeViewTab[];
   view: EpisodeView;
   onViewChange: (view: EpisodeView) => void;
@@ -68,8 +71,11 @@ export function EpisodePageHeader({
     <header className="shrink-0 border-b border-border">
       <div className="flex min-h-11 flex-wrap items-center gap-3 px-4">
         {head}
-        {/* 窄屏时制作进度独占一行，避免与集头信息挤压重叠 */}
-        <div className="flex min-w-0 basis-full items-center @min-md/ep-page:basis-auto">{progress}</div>
+        {/* 窄屏时制作进度独占一行，避免与集头信息挤压重叠；右侧放集事实（条目数 · 时长） */}
+        <div className="flex min-w-0 basis-full items-center justify-between gap-3 @min-md/ep-page:basis-auto">
+          {progress}
+          {progressAside}
+        </div>
       </div>
       <div className="flex min-h-10 flex-wrap items-center gap-3 px-4">
         <Tabs value={view} onValueChange={(next: EpisodeView) => onViewChange(next)} className="shrink-0">

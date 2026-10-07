@@ -429,7 +429,7 @@ export function WorkflowPanel({ projectName, episode, onViewUnit, onRegenerate, 
         <PopoverContent
           align="end"
           collisionAvoidance={{ side: "none" }}
-          className="relative w-140 max-h-[min(70dvh,640px,var(--available-height))]"
+          className="relative w-140 max-w-[calc(100vw-1rem)] max-h-[min(70dvh,640px,var(--available-height))]"
         >
           <PopoverHeader>
             <PopoverTitle>{t("panel_title")}</PopoverTitle>

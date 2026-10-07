@@ -107,7 +107,8 @@ export function EpisodeHead({
           onSave={onSaveTitle}
         />
       </div>
-      <p className="num flex min-w-0 shrink-[2] items-center gap-1.5 text-xs whitespace-nowrap text-muted-foreground">
+      {/* 条目数 · 时长 · 视频进度：窄屏挪到制作进度行右侧（EpisodeHeadFacts），这里只留给标题完整宽度 */}
+      <p className="num hidden min-w-0 shrink-[2] items-center gap-1.5 text-xs whitespace-nowrap text-muted-foreground @min-md/ep-page:flex">
         <span className="min-w-0 truncate">{facts.join(" · ")}</span>
         {costSummary ? (
           /* 窄屏不显示预估金额，桌面端保留（悬停提示里还有已花与剩余） */
@@ -147,5 +148,25 @@ export function EpisodeHead({
         </>
       ) : null}
     </div>
+  );
+}
+
+/**
+ * 集头事实（条目数 · 时长 · 视频进度）的窄屏版本：放在制作进度那一行的右侧空白处，
+ * 把第一行完整让给集标题。桌面端隐藏（EpisodeHead 里已有同一份信息）。
+ */
+export function EpisodeHeadFacts({ meta, route }: { meta: EpisodeMeta | undefined; route: GenerationRoute }) {
+  const { t } = useTranslation("dashboard");
+  const facts: string[] = [];
+  if (meta?.item_count != null) facts.push(t(itemCountKey(route), { count: meta.item_count }));
+  if (meta?.duration_seconds) facts.push(t("episode_head_duration", { duration: formatDuration(meta.duration_seconds) }));
+  if (meta?.videos && meta.videos.total > 0) {
+    facts.push(t("episode_head_videos", { available: meta.videos.available, total: meta.videos.total }));
+  }
+  if (facts.length === 0) return null;
+  return (
+    <p className="num flex min-w-0 items-center gap-1.5 text-xs whitespace-nowrap text-muted-foreground @min-md/ep-page:hidden">
+      <span className="min-w-0 truncate">{facts.join(" · ")}</span>
+    </p>
   );
 }
