@@ -66,11 +66,12 @@ export function EpisodePageHeader({
   };
   return (
     <header className="shrink-0 border-b border-border">
-      <div className="flex h-11 items-center gap-3 px-4">
+      <div className="flex min-h-11 flex-wrap items-center gap-3 px-4">
         {head}
-        {progress}
+        {/* 窄屏时制作进度独占一行，避免与集头信息挤压重叠 */}
+        <div className="flex min-w-0 basis-full items-center @min-md/ep-page:basis-auto">{progress}</div>
       </div>
-      <div className="flex h-10 items-center gap-3 px-4">
+      <div className="flex min-h-10 flex-wrap items-center gap-3 px-4">
         <Tabs value={view} onValueChange={(next: EpisodeView) => onViewChange(next)} className="shrink-0">
           <TabsList aria-label={t("episode_view_aria")}>
             {tabs.map((tab) =>
@@ -84,8 +85,9 @@ export function EpisodePageHeader({
             )}
           </TabsList>
         </Tabs>
-        {/* 动作多到放不下时横向滚动；插槽靠右，溢出时从左端开始滚，不裁掉第一个动作。 */}
-        <div className="relative flex min-w-0 flex-1 overflow-x-auto scroll-fade-x">
+        {/* 动作多到放不下时横向滚动；插槽靠右，溢出时从左端开始滚，不裁掉第一个动作。
+            窄屏时动作区独占一行（编写提示词等整行出现），桌面端保持行内靠右 */}
+        <div className="relative flex min-w-0 flex-1 basis-full overflow-x-auto scroll-fade-x @min-md/ep-page:basis-auto">
           <div ref={onActionsSlot} className="ml-auto flex shrink-0 items-center gap-1.5" />
         </div>
       </div>

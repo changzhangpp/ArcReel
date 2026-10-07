@@ -204,7 +204,7 @@ function EpisodePageContent({
 
   return (
     <EpisodeHeaderSlotProvider value={actionsSlot}>
-      <div className="flex min-h-0 flex-1 flex-col">
+      <div className="@container/ep-page flex min-h-0 flex-1 flex-col">
         <EpisodePageHeader
           head={
             // 换集时重置：编辑到一半的标题草稿与删除确认不能带到另一集

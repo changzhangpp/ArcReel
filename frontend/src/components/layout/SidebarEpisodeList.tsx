@@ -106,7 +106,7 @@ export function SidebarEpisodeList({
             <SortableItem
               key={ep.episode}
               id={ep.episode}
-              className="group/episode relative flex items-center rounded-md bg-background data-dragging:shadow-overlay"
+              className="group/episode relative flex items-center rounded-md bg-background data-dragging:shadow-overlay [content-visibility:auto] [contain-intrinsic-size:auto_64px]"
             >
               {reorderable && (
                 // 把手盖在集序号上，悬停或聚焦时出现
