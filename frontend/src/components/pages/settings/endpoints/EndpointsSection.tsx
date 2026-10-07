@@ -268,10 +268,10 @@ export function EndpointsSection() {
   }
 
   return (
-    <div className="flex">
+    <div className="flex flex-col md:flex-row">
       <nav
         aria-label={t("ce_section_title")}
-        className="sticky top-0 max-h-screen w-60 shrink-0 self-start overflow-y-auto border-r border-hairline-soft px-3 py-5"
+        className="max-h-[40vh] w-full shrink-0 overflow-y-auto border-b border-hairline-soft px-3 py-4 md:sticky md:top-0 md:max-h-screen md:w-60 md:self-start md:border-b-0 md:border-r md:py-5"
         style={{ background: "oklch(0.16 0.010 265 / 0.45)" }}
       >
         <div className="mb-3 flex items-center gap-1.5 px-1">

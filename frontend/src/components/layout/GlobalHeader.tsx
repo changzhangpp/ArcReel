@@ -1,7 +1,7 @@
 import { startTransition, useState, useEffect, useRef } from "react";
 import { errMsg, voidPromise } from "@/utils/async";
 import { useLocation } from "wouter";
-import { ChevronLeft, Settings, Bell, Download, Loader2, Package } from "lucide-react";
+import { ChevronLeft, Settings, Bell, Download, Loader2, Menu, Package } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAppStore } from "@/stores/app-store";
 import { useConfigStatusStore } from "@/stores/config-status-store";
@@ -45,7 +45,7 @@ export function GlobalHeader({ onNavigateBack }: GlobalHeaderProps) {
   const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const { currentProjectData, currentProjectName } = useProjectsStore();
-  const { setUsagePanelOpen, triggerScrollTo, markWorkspaceNotificationRead } = useAppStore();
+  const { setUsagePanelOpen, triggerScrollTo, markWorkspaceNotificationRead, toggleWorkspaceNav } = useAppStore();
   const [notificationDrawerOpen, setNotificationDrawerOpen] = useState(false);
   const [exportingProject, setExportingProject] = useState(false);
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
@@ -173,10 +173,8 @@ export function GlobalHeader({ onNavigateBack }: GlobalHeaderProps) {
   return (
     <>
       <header
-        className="grid h-12 shrink-0 items-center px-4"
+        className="grid h-12 shrink-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-2 sm:gap-3.5 sm:px-4 md:grid-cols-[minmax(0,256px)_1fr_auto]"
         style={{
-          gridTemplateColumns: "minmax(0, 256px) 1fr auto",
-          gap: 14,
           background:
             "linear-gradient(180deg, oklch(0.21 0.011 265 / 0.85), oklch(0.19 0.010 265 / 0.75))",
           backdropFilter: "blur(16px) saturate(1.1)",
@@ -189,6 +187,16 @@ export function GlobalHeader({ onNavigateBack }: GlobalHeaderProps) {
       >
         {/* ---- Left: back + project menu ---- */}
         <div className="flex min-w-0 items-center gap-2">
+          <button
+            type="button"
+            onClick={toggleWorkspaceNav}
+            className="grid h-8 w-8 shrink-0 place-items-center rounded-md transition-colors focus-ring md:hidden"
+            style={{ color: "var(--color-text-3)" }}
+            title={t("dashboard:workspace_nav_open")}
+            aria-label={t("dashboard:workspace_nav_open")}
+          >
+            <Menu className="h-4 w-4" />
+          </button>
           <button
             type="button"
             onClick={onNavigateBack}

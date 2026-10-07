@@ -631,7 +631,7 @@ export function ProjectSettingsPage() {
             "inset 0 1px 0 oklch(1 0 0 / 0.05), 0 6px 24px -12px oklch(0 0 0 / 0.45)",
         }}
       >
-        <div className="mx-auto flex max-w-3xl items-center gap-4 px-6 py-4">
+        <div className="mx-auto flex max-w-3xl items-center gap-4 px-4 py-4 sm:px-6">
           <button
             onClick={() => guardedNavigate(`/app/projects/${projectName}`)}
             className="inline-flex items-center gap-1.5 rounded-md border border-hairline-soft bg-bg-grad-a/45 px-2.5 py-1.5 text-[12px] text-text-3 transition-colors hover:border-hairline hover:bg-bg-grad-a hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
@@ -667,7 +667,7 @@ export function ProjectSettingsPage() {
 
       {/* ─── Scrollable body ─── */}
       <div className="min-h-0 flex-1 overflow-y-auto">
-        <div className="mx-auto max-w-3xl px-6 py-7 pb-24 space-y-5">
+        <div className="mx-auto max-w-3xl px-4 py-6 pb-24 space-y-5 sm:px-6 sm:py-7">
           <div>
             <div className="font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-text-3">
               {t("model_config")}
@@ -1042,7 +1042,7 @@ export function ProjectSettingsPage() {
           boxShadow: "0 -8px 28px -12px oklch(0 0 0 / 0.55)",
         }}
       >
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-6 py-3">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
           <div className="min-w-0 flex items-center gap-2 text-[11.5px] text-text-3">
             <span
               aria-hidden

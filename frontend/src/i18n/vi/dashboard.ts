@@ -1853,6 +1853,7 @@ export default {
   'upload_aborted_project_changed': 'Đã đổi dự án; đã hủy tải lên {{filename}}',
   'workspace_nav_characters': 'Nhân vật',
   'workspace_nav_overview': 'Tổng quan',
+  'workspace_nav_open': 'Mở điều hướng',
   'workspace_nav_props': 'Đạo cụ',
   'ad_init_title': 'Chuẩn bị tư liệu của bạn',
   'ad_init_subtitle': 'Tải lên ảnh hàng hóa, điền thông tin hàng hóa và brief sáng tạo để bắt đầu',

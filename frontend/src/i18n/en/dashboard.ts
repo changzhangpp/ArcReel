@@ -1789,6 +1789,7 @@ export default {
   'media_upload_failed': 'Upload failed: {{message}}',
   'media_refresh_failed': 'Uploaded, but the list failed to refresh: {{message}}',
   'workspace_nav_overview': 'Overview',
+  'workspace_nav_open': 'Open navigation',
   'workspace_nav_source': 'Source files',
   'workspace_nav_characters': 'Characters',
   'workspace_nav_scenes': 'Scenes',

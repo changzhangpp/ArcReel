@@ -414,7 +414,7 @@ function TopBar({
           "inset 0 1px 0 oklch(1 0 0 / 0.05), 0 6px 24px -12px oklch(0 0 0 / 0.45)",
       }}
     >
-      <div className="mx-auto flex max-w-[1320px] items-center gap-4 px-6 py-3">
+      <div className="mx-auto flex max-w-[1320px] flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 sm:px-6">
         <div className="flex items-center gap-2.5">
           <img
             src="/android-chrome-192x192.png"
@@ -429,7 +429,7 @@ function TopBar({
           </span>
         </div>
 
-        <label className="ml-2 flex w-[min(420px,100%)] items-center gap-2 rounded-lg border border-hairline-soft bg-bg/55 px-3 py-1.5 transition-colors focus-within:border-accent/60">
+        <label className="order-last flex w-full items-center gap-2 rounded-lg border border-hairline-soft bg-bg/55 px-3 py-1.5 transition-colors focus-within:border-accent/60 md:order-none md:ml-2 md:w-[min(420px,100%)]">
             <Search className="h-3.5 w-3.5 text-text-3" />
             <input
               ref={searchInputRef}
@@ -454,7 +454,7 @@ function TopBar({
             </kbd>
         </label>
 
-        <div className="ml-auto flex items-center gap-1.5">
+        <div className="ml-auto flex flex-wrap items-center justify-end gap-1.5">
           <button
             type="button"
             onClick={onAssets}
@@ -600,12 +600,12 @@ function HeroStrip({ totals, t }: HeroStripProps) {
   ];
 
   return (
-    <div className="mx-auto flex max-w-[1320px] items-stretch justify-between gap-6 px-6 pb-5 pt-6">
+    <div className="mx-auto flex max-w-[1320px] flex-col items-stretch justify-between gap-4 px-4 pb-5 pt-6 sm:px-6 md:flex-row md:gap-6">
       <div className="min-w-0 flex-1">
         <h1
           className="font-editorial m-0"
           style={{
-            fontSize: 46,
+            fontSize: "clamp(28px, 8vw, 46px)",
             fontWeight: 400,
             lineHeight: 1.22,
             letterSpacing: "-0.012em",
@@ -629,13 +629,13 @@ function HeroStrip({ totals, t }: HeroStripProps) {
           {summaryLine}
         </p>
       </div>
-      <div className="flex flex-col items-end justify-between gap-2.5">
+      <div className="flex flex-col items-end justify-between gap-2.5 md:items-end">
         <div className="mt-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-2">
           {t("dashboard:lobby_hero_eyebrow")} — {dateLine}
         </div>
         <div
           data-testid="lobby-hero-stats"
-          className="flex items-stretch overflow-hidden rounded-[10px] border border-hairline-soft"
+          className="flex items-stretch overflow-x-auto rounded-[10px] border border-hairline-soft"
           style={{ background: "oklch(0.16 0.010 265 / 0.4)" }}
         >
           {stats.map((s, i) => (
@@ -702,7 +702,7 @@ function FilterPills({ active, onChange, counts, phaseLabels, t }: FilterPillsPr
         borderTopColor: "var(--color-hairline-soft)",
       }}
     >
-      <div className="mx-auto flex max-w-[1320px] items-center gap-1.5 px-6 py-2.5">
+      <div className="mx-auto flex max-w-[1320px] flex-wrap items-center gap-1.5 px-4 py-2.5 sm:px-6">
         {pills.map((c) => {
           const isActive = active === c.key;
           return (
@@ -1024,7 +1024,7 @@ export function ProjectsPage() {
         />
       ) : null}
 
-      <main className="mx-auto max-w-[1320px] px-6 pt-6 pb-16">
+      <main className="mx-auto max-w-[1320px] px-4 pt-6 pb-16 sm:px-6">
         {/* 引导运行期间才挂，退出即卸载。放在加载/空态分支之外——首次使用时项目列表通常是空的，
             而演示卡正是那一刻最需要讲的东西。 */}
         {tourActive ? <OnboardingDemoCard /> : null}

@@ -109,6 +109,11 @@ interface AppState {
   usagePanelOpen: boolean;
   setUsagePanelOpen: (open: boolean) => void;
 
+  /** 移动端工作区导航抽屉（资产侧栏）的开合；桌面端不消费。 */
+  workspaceNavOpen: boolean;
+  setWorkspaceNavOpen: (open: boolean) => void;
+  toggleWorkspaceNav: () => void;
+
   // Source files invalidation signal
   sourceFilesVersion: number;
   invalidateSourceFiles: () => void;
@@ -274,6 +279,10 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
   usagePanelOpen: false,
   setUsagePanelOpen: (open) => set({ usagePanelOpen: open }),
+
+  workspaceNavOpen: false,
+  setWorkspaceNavOpen: (open) => set({ workspaceNavOpen: open }),
+  toggleWorkspaceNav: () => set((s) => ({ workspaceNavOpen: !s.workspaceNavOpen })),
 
   sourceFilesVersion: 0,
   invalidateSourceFiles: () => set((s) => ({ sourceFilesVersion: s.sourceFilesVersion + 1 })),

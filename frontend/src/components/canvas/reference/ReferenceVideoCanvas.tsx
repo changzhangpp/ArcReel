@@ -891,7 +891,7 @@ export function ReferenceVideoCanvas({
       />
 
       {/* Tabs + request-local generation controls */}
-      <div className="flex items-center gap-0.5 border-b border-[var(--color-hairline)] bg-[oklch(0.19_0.012_250_/_0.5)] px-5">
+      <div className="flex items-center gap-0.5 overflow-x-auto border-b border-[var(--color-hairline)] bg-[oklch(0.19_0.012_250_/_0.5)] px-3 sm:px-5">
         <div role="tablist" aria-label={t("reference_main_tab_aria")} className="flex items-center gap-0.5">
           {showPreprocess && <button
             type="button"
@@ -1112,7 +1112,7 @@ export function ReferenceVideoCanvas({
                     <div
                       role="tablist"
                       aria-label={t("reference_tab_aria")}
-                      className="flex items-center gap-0 border-b border-[var(--color-hairline)] bg-[oklch(0.19_0.012_250_/_0.4)] px-5"
+                      className="flex items-center gap-0 overflow-x-auto border-b border-[var(--color-hairline)] bg-[oklch(0.19_0.012_250_/_0.4)] px-3 sm:px-5"
                     >
                       <button
                         type="button"

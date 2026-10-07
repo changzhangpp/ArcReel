@@ -25,6 +25,8 @@ import { EpisodeCard } from "./EpisodeCard";
 
 interface AssetSidebarProps {
   className?: string;
+  /** 移动端抽屉里导航后关闭抽屉；桌面端不传。 */
+  onNavigate?: () => void;
 }
 
 interface NavItem {
@@ -41,7 +43,7 @@ interface NavItem {
  * - 分集列表（搜索 + 卡片列表，每张卡片含缩略+状态+进度+费用）
  * - 折叠态（64px）：仅图标 + Ex 字符
  */
-export function AssetSidebar({ className }: AssetSidebarProps) {
+export function AssetSidebar({ className, onNavigate }: AssetSidebarProps) {
   const { t } = useTranslation(["common", "dashboard"]);
   const { currentProjectName, currentProjectData } = useProjectsStore();
   const debouncedFetchCost = useCostStore((s) => s.debouncedFetch);
@@ -172,7 +174,10 @@ export function AssetSidebar({ className }: AssetSidebarProps) {
             <button
               key={item.key}
               type="button"
-              onClick={() => setLocation(item.path)}
+              onClick={() => {
+                setLocation(item.path);
+                onNavigate?.();
+              }}
               title={collapsed ? item.label : ""}
               aria-label={collapsed ? item.label : undefined}
               className="relative mb-px flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 transition-colors focus-ring hover:bg-[oklch(0.26_0.012_265/0.5)]"
@@ -310,7 +315,10 @@ export function AssetSidebar({ className }: AssetSidebarProps) {
                   key={ep.episode}
                   ep={ep}
                   active={ep.episode === activeEp}
-                  onClick={() => setLocation(`/episodes/${ep.episode}`)}
+                  onClick={() => {
+                    setLocation(`/episodes/${ep.episode}`);
+                    onNavigate?.();
+                  }}
                   showEpisodeBadge={!isAd}
                   fallbackTitle={isAd ? currentProjectData?.title : undefined}
                   route={normalizeRoute(currentProjectData?.generation_mode)}
@@ -332,7 +340,10 @@ export function AssetSidebar({ className }: AssetSidebarProps) {
             <button
               key={ep.episode}
               type="button"
-              onClick={() => setLocation(`/episodes/${ep.episode}`)}
+              onClick={() => {
+                setLocation(`/episodes/${ep.episode}`);
+                onNavigate?.();
+              }}
               title={epLabel}
               aria-label={epLabel}
               className="num mb-[3px] flex h-9 w-full items-center justify-center rounded-md text-[11px] font-bold focus-ring"
@@ -353,7 +364,7 @@ export function AssetSidebar({ className }: AssetSidebarProps) {
 
       {/* ---- Collapse footer ---- */}
       <div
-        className="flex items-center gap-2 px-2.5 py-2"
+        className="hidden items-center gap-2 px-2.5 py-2 md:flex"
         style={{
           borderTop: "1px solid var(--color-hairline)",
           background: "oklch(0.17 0.010 250 / 0.6)",

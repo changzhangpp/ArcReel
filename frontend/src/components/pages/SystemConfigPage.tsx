@@ -145,7 +145,7 @@ export function SystemConfigPage() {
 
   return (
     <div
-      className="relative flex h-screen flex-col text-text"
+      className="relative flex h-dvh flex-col text-text"
       style={
         {
           background:
@@ -166,7 +166,7 @@ export function SystemConfigPage() {
             "inset 0 1px 0 oklch(1 0 0 / 0.05), 0 6px 24px -12px oklch(0 0 0 / 0.45)",
         }}
       >
-        <div className="mx-auto flex max-w-[1320px] items-center gap-5 px-6 py-4">
+        <div className="mx-auto flex max-w-[1320px] items-center gap-3 px-4 py-4 sm:gap-5 sm:px-6">
           <Link
             href="/app/projects"
             className="inline-flex items-center gap-1.5 rounded-md border border-hairline-soft bg-bg-grad-a/45 px-2.5 py-1.5 text-[12px] text-text-3 transition-colors hover:border-hairline hover:bg-bg-grad-a hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
@@ -212,16 +212,19 @@ export function SystemConfigPage() {
       </header>
 
       {/* ─── Body: sidebar + content ─── */}
-      <div className="flex min-h-0 flex-1">
-        {/* Sidebar */}
+      <div className="flex min-h-0 flex-1 flex-col md:flex-row">
+        {/* Sidebar — 窄屏时折成顶部横向滚动条 */}
         <nav
           aria-label={t("common:settings")}
-          className="w-[220px] shrink-0 overflow-y-auto border-r border-hairline-soft px-3 py-5"
+          className="flex w-full shrink-0 gap-1.5 overflow-x-auto border-b border-hairline-soft px-3 py-3 md:w-[220px] md:flex-col md:gap-0 md:overflow-x-hidden md:overflow-y-auto md:border-b-0 md:border-r md:py-5"
           style={{ background: "oklch(0.16 0.010 265 / 0.45)" }}
         >
           {SECTION_GROUPS.map((group, gi) => (
-            <div key={group.kicker} className={gi > 0 ? "mt-5" : undefined}>
-              <div className="mb-2 px-3 font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-text-4">
+            <div
+              key={group.kicker}
+              className={"flex shrink-0 md:block " + (gi > 0 ? "md:mt-5" : "")}
+            >
+              <div className="mb-2 hidden px-3 font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-text-4 md:block">
                 {group.kicker}
               </div>
               {group.items.map(({ id, labelKey, Icon }) => {
@@ -239,7 +242,8 @@ export function SystemConfigPage() {
                     aria-current={isActive ? "page" : undefined}
                     aria-pressed={isActive}
                     className={
-                      "group relative mb-0.5 flex w-full items-center gap-2.5 rounded-[8px] border px-3 py-2 text-left text-[12.5px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent " +
+                      "group relative mb-0.5 flex w-auto shrink-0 items-center gap-2.5 whitespace-nowrap rounded-[8px] border px-3 py-2 text-left text-[12.5px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:w-full md:shrink "
+                      +
                       (isActive
                         ? "border-accent/35 bg-accent-dim text-text shadow-[inset_0_1px_0_oklch(1_0_0_/_0.04),0_0_22px_-10px_var(--color-accent-glow)]"
                         : "border-transparent text-text-3 hover:border-hairline-soft hover:bg-bg-grad-a/55 hover:text-text")
@@ -261,7 +265,7 @@ export function SystemConfigPage() {
                         (isActive ? "text-accent-2" : "text-text-3 group-hover:text-text-2")
                       }
                     />
-                    <span className="flex-1 truncate">{t(labelKey)}</span>
+                    <span className="md:flex-1 md:truncate">{t(labelKey)}</span>
                     {hasIssue && (
                       <span
                         aria-label={t("dashboard:config_incomplete")}
@@ -290,7 +294,7 @@ export function SystemConfigPage() {
           ) : activeSection === "endpoints" ? (
             <EndpointsSection />
           ) : (
-            <div className="mx-auto max-w-4xl px-8 py-8">
+            <div className="mx-auto max-w-4xl px-4 py-6 sm:px-8 sm:py-8">
               {/* Quick alert for config issues */}
               {configIssues.length > 0 && (
                 <div

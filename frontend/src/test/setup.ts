@@ -20,6 +20,25 @@ if (typeof globalThis.ResizeObserver === "undefined") {
   };
 }
 
+// jsdom 不实现 matchMedia；默认按桌面视口匹配（所有 (max-width) 查询均不命中），
+// 让默认渲染走桌面分支。需要断言移动布局的用例自行 spyOn(window, "matchMedia")。
+if (typeof window !== "undefined" && typeof window.matchMedia !== "function") {
+  Object.defineProperty(window, "matchMedia", {
+    configurable: true,
+    writable: true,
+    value: (query: string): MediaQueryList => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      addListener: () => {},
+      removeListener: () => {},
+      dispatchEvent: () => false,
+    }),
+  });
+}
+
 if (
   typeof window !== "undefined"
   && (

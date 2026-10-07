@@ -252,7 +252,7 @@ export function GridImageToVideoCanvas({
       <div
         role="tablist"
         aria-label={t("grid_canvas_tab_aria")}
-        className="flex items-center gap-0.5 px-5"
+        className="flex items-center gap-0.5 overflow-x-auto px-3 sm:px-5"
         style={{
           borderBottom: "1px solid var(--color-hairline)",
           background: "oklch(0.19 0.012 250 / 0.5)",

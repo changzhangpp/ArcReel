@@ -23,6 +23,8 @@ interface ShotListProps {
   projectName: string;
   collapsed: boolean;
   onToggleCollapse: () => void;
+  /** 窄屏下固定为收起态，隐藏展开/收起按钮 */
+  collapsible?: boolean;
   /** 接收滚动容器 ref，外部可挂载 useScrollTarget */
   scrollContainerRef?: React.RefObject<HTMLDivElement | null>;
 }
@@ -74,6 +76,7 @@ export function ShotList({
   projectName,
   collapsed,
   onToggleCollapse,
+  collapsible = true,
   scrollContainerRef,
 }: ShotListProps) {
   const { t } = useTranslation("dashboard");
@@ -113,20 +116,22 @@ export function ShotList({
           background: "oklch(0.19 0.011 265 / 0.5)",
         }}
       >
-        <button
-          type="button"
-          onClick={onToggleCollapse}
-          title={t("shot_list_expand")}
-          aria-label={t("shot_list_expand")}
-          className="grid h-7 w-7 place-items-center rounded-md focus-ring"
-          style={{
-            background: "oklch(0.24 0.012 265 / 0.5)",
-            border: "1px solid var(--color-hairline-soft)",
-            color: "var(--color-text-3)",
-          }}
-        >
-          <ChevronRight className="h-3.5 w-3.5" />
-        </button>
+        {collapsible ? (
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            title={t("shot_list_expand")}
+            aria-label={t("shot_list_expand")}
+            className="grid h-7 w-7 place-items-center rounded-md focus-ring"
+            style={{
+              background: "oklch(0.24 0.012 265 / 0.5)",
+              border: "1px solid var(--color-hairline-soft)",
+              color: "var(--color-text-3)",
+            }}
+          >
+            <ChevronRight className="h-3.5 w-3.5" />
+          </button>
+        ) : null}
         <div
           className="mt-1.5 text-[9.5px] font-bold uppercase"
           style={{
@@ -187,16 +192,18 @@ export function ShotList({
           {filtered.length}
         </span>
         <span className="flex-1" />
-        <button
-          type="button"
-          onClick={onToggleCollapse}
-          title={t("shot_list_collapse")}
-          aria-label={t("shot_list_collapse")}
-          className="grid h-6 w-6 place-items-center rounded text-[11px] focus-ring"
-          style={{ color: "var(--color-text-4)" }}
-        >
-          <ChevronLeft className="h-3.5 w-3.5" />
-        </button>
+        {collapsible ? (
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            title={t("shot_list_collapse")}
+            aria-label={t("shot_list_collapse")}
+            className="grid h-6 w-6 place-items-center rounded text-[11px] focus-ring"
+            style={{ color: "var(--color-text-4)" }}
+          >
+            <ChevronLeft className="h-3.5 w-3.5" />
+          </button>
+        ) : null}
         <button
           type="button"
           disabled

@@ -7,6 +7,7 @@ import type {
   ReferenceGenerationRequestOptions,
 } from "@/types";
 import { useAppStore } from "@/stores/app-store";
+import { useIsMobileViewport } from "@/hooks/useMediaQuery";
 import { getScriptItemId, type EditorContentMode } from "@/utils/script-shape";
 import { ShotList } from "./ShotList";
 import { ShotDetail } from "./ShotDetail";
@@ -78,6 +79,8 @@ export function ShotSplitView({
   const [collapsed, setCollapsed] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 1100,
   );
+  const isMobile = useIsMobileViewport();
+  const effectiveCollapsed = collapsed || isMobile;
   const [movePending, setMovePending] = useState(false);
   const listScrollRef = useRef<HTMLDivElement>(null);
 
@@ -136,7 +139,9 @@ export function ShotSplitView({
     <div
       className="grid h-full min-w-0 overflow-hidden"
       style={{
-        gridTemplateColumns: collapsed ? "44px minmax(0, 1fr)" : "220px minmax(0, 1fr)",
+        gridTemplateColumns: effectiveCollapsed
+          ? "44px minmax(0, 1fr)"
+          : "220px minmax(0, 1fr)",
         gridTemplateRows: "minmax(0, 1fr)",
       }}
     >
@@ -146,7 +151,8 @@ export function ShotSplitView({
         onSelect={setSelectedIndex}
         contentMode={contentMode}
         projectName={projectName}
-        collapsed={collapsed}
+        collapsed={effectiveCollapsed}
+        collapsible={!isMobile}
         onToggleCollapse={() => setCollapsed((c) => !c)}
         scrollContainerRef={listScrollRef}
       />

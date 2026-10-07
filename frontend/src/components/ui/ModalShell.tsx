@@ -112,14 +112,14 @@ export function ModalShell(props: ModalShellProps) {
   if (!open) return null;
 
   const composedClassName = [
-    "relative max-w-[96vw] outline-none",
+    "relative my-auto max-w-[96vw] outline-none",
     className,
   ]
     .filter(Boolean)
     .join(" ");
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+    <div className="fixed inset-0 z-50">
       <div
         data-testid="modal-backdrop"
         aria-hidden="true"
@@ -127,18 +127,20 @@ export function ModalShell(props: ModalShellProps) {
         className={`absolute inset-0 ${closeOnBackdrop ? "cursor-pointer" : "cursor-default"}`}
         style={backdropStyle ?? DEFAULT_BACKDROP_STYLE}
       />
-      <div
-        ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={labelledBy}
-        aria-describedby={describedBy}
-        aria-label={!labelledBy ? ariaLabel : undefined}
-        className={composedClassName}
-        style={style}
-        tabIndex={-1}
-      >
-        {children}
+      <div className="flex h-full justify-center overflow-y-auto p-4">
+        <div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={labelledBy}
+          aria-describedby={describedBy}
+          aria-label={!labelledBy ? ariaLabel : undefined}
+          className={composedClassName}
+          style={style}
+          tabIndex={-1}
+        >
+          {children}
+        </div>
       </div>
     </div>,
     document.body,

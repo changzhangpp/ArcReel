@@ -256,7 +256,7 @@ export function EndpointForm({ definition, onChange, readOnly }: EndpointFormPro
 
       {/* 3 输入素材 */}
       <FormSection id="inputs" step={3} title={t("ce_section_inputs")} desc={t("ce_section_inputs_desc")}>
-        <div className="space-y-2">
+        <div className="space-y-2 overflow-x-auto">
           <div className="grid grid-cols-[1fr_180px_150px_110px_32px] gap-3 text-[11.5px] text-text-3">
             <span className="px-1">{t("ce_input_variable")}</span>
             <span className="px-1">{t("ce_input_source")}</span>
@@ -515,7 +515,7 @@ export function EndpointForm({ definition, onChange, readOnly }: EndpointFormPro
 
       {/* 6 状态对照 */}
       <FormSection id="status" step={6} title={t("ce_section_status")} desc={t("ce_section_status_desc")}>
-        <div className="space-y-2">
+        <div className="space-y-2 overflow-x-auto">
           <div className="grid grid-cols-[1fr_16px_180px_32px] gap-3 text-[11.5px] text-text-3">
             <span className="px-1">{t("ce_status_provider_value")}</span>
             <span />

@@ -152,7 +152,7 @@ export function AssetFormModal({
         )}
 
         {/* Body */}
-        <div className="grid grid-cols-[200px_1fr] gap-5 p-6">
+        <div className="grid grid-cols-1 gap-5 p-4 sm:grid-cols-[200px_1fr] sm:p-6">
           {/* Image uploader */}
           <div>
             <button

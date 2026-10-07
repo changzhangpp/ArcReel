@@ -266,7 +266,7 @@ export function TimelineCanvas(props: TimelineCanvasProps) {
 
       {/* Tab bar + 批量按钮 */}
       <div
-        className="flex items-center gap-0.5 px-5"
+        className="flex items-center gap-0.5 overflow-x-auto px-3 sm:px-5"
         style={{
           borderBottom: "1px solid var(--color-hairline)",
           background: "oklch(0.19 0.012 250 / 0.5)",

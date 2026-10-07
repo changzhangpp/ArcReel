@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
-import { Bot } from "lucide-react";
+import { Bot, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { GlobalHeader } from "./GlobalHeader";
 import { AssetSidebar } from "./AssetSidebar";
@@ -16,6 +16,7 @@ import { DemoAssistantPanel } from "@/onboarding/DemoAssistantPanel";
 import { DemoReadOnlyBanner } from "@/onboarding/DemoReadOnlyBanner";
 import { useDemoWorkbench } from "@/onboarding/use-demo-workbench";
 import { isDemoProject } from "@/onboarding/demo-project";
+import { useIsMobileViewport } from "@/hooks/useMediaQuery";
 import {
   ASSISTANT_PANEL_DEFAULT_WIDTH,
   clampAssistantPanelWidth,
@@ -31,8 +32,9 @@ interface StudioLayoutProps {
  * 工作台三栏布局壳：顶栏 + （侧栏 / 主区 / Agent 面板）。
  */
 export function StudioLayout({ children }: StudioLayoutProps) {
-  const { t } = useTranslation("dashboard");
-  const [, setLocation] = useLocation();
+  const { t } = useTranslation(["dashboard", "common"]);
+  const [location, setLocation] = useLocation();
+  const isMobile = useIsMobileViewport();
   const currentProjectName = useProjectsStore((s) => s.currentProjectName);
   // 演示项目在后端不存在：任务 / 项目事件流和 Agent 都是真实写路径，演示态下整条都不接
   const demoMode = useDemoWorkbench();
@@ -43,6 +45,13 @@ export function StudioLayout({ children }: StudioLayoutProps) {
   const persistAssistantPanelWidth = useAppStore(
     (s) => s.persistAssistantPanelWidth,
   );
+  const workspaceNavOpen = useAppStore((s) => s.workspaceNavOpen);
+  const setWorkspaceNavOpen = useAppStore((s) => s.setWorkspaceNavOpen);
+
+  // 移动端抽屉在路由变化后自动收起，避免点完导航仍盖住主区。
+  useEffect(() => {
+    setWorkspaceNavOpen(false);
+  }, [location, setWorkspaceNavOpen]);
 
   // 拖动期间的"草稿宽度"。非 null 表示正在拖动，UI 用 draftWidth 即时反馈；
   // mouseup / blur 时才把 draftWidth 提交到 store + localStorage，避免每帧
@@ -157,7 +166,7 @@ export function StudioLayout({ children }: StudioLayoutProps) {
 
   return (
     <div
-      className="flex h-screen flex-col"
+      className="flex h-dvh flex-col"
       style={{ color: "var(--color-text)" }}
     >
       <TaskFailureListener projectName={sseProjectName} />
@@ -165,8 +174,28 @@ export function StudioLayout({ children }: StudioLayoutProps) {
       <GlobalHeader onNavigateBack={() => setLocation("~/app/projects")} />
       {demoMode ? <DemoReadOnlyBanner /> : null}
       <MigrationRepairBanner />
-      <div className="flex flex-1 overflow-hidden">
-        <AssetSidebar />
+      <div className="relative flex flex-1 overflow-hidden">
+        {isMobile ? (
+          <>
+            <button
+              type="button"
+              aria-label={t("common:close")}
+              onClick={() => setWorkspaceNavOpen(false)}
+              className={`absolute inset-0 z-30 bg-black/60 transition-opacity duration-200 ${
+                workspaceNavOpen ? "opacity-100" : "pointer-events-none opacity-0"
+              }`}
+            />
+            <div
+              className={`absolute inset-y-0 left-0 z-40 flex h-full transition-transform duration-200 ease-out ${
+                workspaceNavOpen ? "translate-x-0" : "-translate-x-full"
+              }`}
+            >
+              <AssetSidebar onNavigate={() => setWorkspaceNavOpen(false)} />
+            </div>
+          </>
+        ) : (
+          <AssetSidebar />
+        )}
         <main className="flex-1 overflow-hidden">
           {children}
         </main>
@@ -174,7 +203,42 @@ export function StudioLayout({ children }: StudioLayoutProps) {
             不可收起、不可拖宽——演示里没有要腾的空间，少两个交互点。宽度封顶在默认宽度
             但随视口收缩：真实面板窄屏下还能手动收起，演示面板收不起来，引导期间底层又是
             inert 的，固定 505px 会把工作区挤没，后面几步就没东西可看了 */}
-        {demoMode ? (
+        {isMobile ? (
+          demoMode ? (
+            <div
+              className="absolute inset-x-0 bottom-0 z-40 h-[45dvh] overflow-hidden"
+              style={{
+                background: "oklch(0.19 0.011 250 / 0.98)",
+                borderTop: "1px solid var(--color-hairline)",
+              }}
+            >
+              <DemoAssistantPanel />
+            </div>
+          ) : assistantPanelOpen ? (
+            <div
+              className="absolute inset-0 z-40 flex flex-col"
+              style={{
+                background: "oklch(0.19 0.011 250 / 0.99)",
+                borderLeft: "1px solid var(--color-hairline)",
+              }}
+            >
+              <button
+                type="button"
+                onClick={toggleAssistantPanel}
+                className="absolute right-3 top-3 z-10 grid h-8 w-8 place-items-center rounded-md focus-ring"
+                style={{
+                  background: "oklch(0.24 0.012 250 / 0.8)",
+                  color: "var(--color-text-3)",
+                }}
+                title={t("common:close")}
+                aria-label={t("common:close")}
+              >
+                <X className="h-4 w-4" />
+              </button>
+              <AgentCopilot />
+            </div>
+          ) : null
+        ) : demoMode ? (
           <div
             className="shrink-0 overflow-hidden"
             style={{

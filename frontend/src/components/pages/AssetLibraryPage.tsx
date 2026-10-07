@@ -190,7 +190,7 @@ export function AssetLibraryPage() {
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-72" style={HEADER_GLOW_STYLE} />
 
       <header className="sticky top-0 z-30 border-b border-hairline bg-bg/85 backdrop-blur-[28px]">
-        <div className="mx-auto flex max-w-6xl items-start justify-between gap-6 px-6 py-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6 sm:px-6 sm:py-6">
           <div className="flex items-start gap-4">
             <button
               type="button"
@@ -216,8 +216,8 @@ export function AssetLibraryPage() {
             </div>
           </div>
 
-          <div className="flex shrink-0 items-center gap-2 pt-2">
-            <div className="relative">
+          <div className="flex w-full shrink-0 items-center gap-2 sm:w-auto sm:pt-2">
+            <div className="relative flex-1 sm:flex-none">
               <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-text-4" />
               <input
                 type="search"
@@ -225,7 +225,7 @@ export function AssetLibraryPage() {
                 placeholder={t("search_placeholder")}
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                className={`${INPUT_CLS} w-[240px] pl-8`}
+                className={`${INPUT_CLS} w-full pl-8 sm:w-[240px]`}
               />
             </div>
             <button
@@ -244,7 +244,7 @@ export function AssetLibraryPage() {
           role="tablist"
           aria-orientation="horizontal"
           aria-label={t("library_tabs_label")}
-          className="mx-auto flex max-w-6xl items-center gap-2 px-6 pb-3"
+          className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-4 pb-3 sm:px-6"
         >
           {TABS.map(({ type, icon: Icon }) => {
             const active = activeTab === type;
@@ -284,7 +284,7 @@ export function AssetLibraryPage() {
         </div>
       </header>
 
-      <main className="relative mx-auto w-full max-w-6xl flex-1 px-6 py-8">
+      <main className="relative mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
         <div
           role="tabpanel"
           id="asset-panel"

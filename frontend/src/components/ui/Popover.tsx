@@ -89,16 +89,17 @@ export function Popover({
       offset(sideOffset),
       flip({ padding: 12 }),
       shift({ padding: 12 }),
-      ...(maxHeight !== undefined
-        ? [
-            size({
-              padding: 8,
-              apply({ availableHeight, elements }) {
-                elements.floating.style.maxHeight = `${Math.min(maxHeight, availableHeight)}px`;
-              },
-            }),
-          ]
-        : []),
+      // 始终夹住面板尺寸：宽度不超过可视区（避免 w-[22rem]/w-[24rem] 之类在窄屏横向溢出），
+      // 传入 maxHeight 时再额外夹住高度。
+      size({
+        padding: 12,
+        apply({ availableWidth, availableHeight, elements }) {
+          elements.floating.style.maxWidth = `${availableWidth}px`;
+          if (maxHeight !== undefined) {
+            elements.floating.style.maxHeight = `${Math.min(maxHeight, availableHeight)}px`;
+          }
+        },
+      }),
     ],
   });
   const dismiss = useDismiss(context, { outsidePress: true, escapeKey: true });
