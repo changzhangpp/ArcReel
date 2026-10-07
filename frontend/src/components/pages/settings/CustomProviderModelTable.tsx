@@ -151,7 +151,7 @@ export function ModelTable({
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="@container/cptable flex flex-col gap-3">
       {showFilters && (
         <div className="flex flex-wrap items-center gap-2">
           <InputGroup className="w-56">
@@ -188,34 +188,36 @@ export function ModelTable({
 
       <div className="rounded-lg border border-border">
         <Table className="table-fixed">
-          <colgroup>
-            <col className="w-10" />
-            <col />
-            <col className="w-16" />
-            <col />
-            <col className="w-40" />
-            <col className="w-20" />
-            <col className="w-11" />
-          </colgroup>
-          <TableHeader>
-            <TableRow>
-              <TableHead>
-                <Checkbox
-                  checked={allEnabled}
-                  indeterminate={enabledCount > 0 && !allEnabled}
-                  disabled={visible.length === 0}
-                  onCheckedChange={(checked) =>
-                    onSetEnabled(
-                      visible.map((row) => row.key),
-                      checked,
-                    )
-                  }
-                  aria-label={t("cp_enable_all_models")}
-                />
-              </TableHead>
-              <TableHead>{t("model_id_label")}</TableHead>
-              <TableHead>{t("cp_model_type_column")}</TableHead>
-              <TableHead>{t("endpoint_label")}</TableHead>
+        {/* 窄屏隐藏「类型」「调用端点」两列（编辑区里都有），价格列收窄：
+            否则 table-fixed 的固定列宽吃满窄容器，把「模型 ID」压成 0 宽导致表头重叠 */}
+        <colgroup>
+          <col className="w-8 @min-md/cptable:w-10" />
+          <col />
+          <col className="w-16 @max-md/cptable:hidden" />
+          <col className="@max-md/cptable:hidden" />
+          <col className="w-40 @max-md/cptable:w-28" />
+          <col className="w-20 @max-md/cptable:w-11" />
+          <col className="w-11" />
+        </colgroup>
+        <TableHeader>
+          <TableRow>
+            <TableHead>
+              <Checkbox
+                checked={allEnabled}
+                indeterminate={enabledCount > 0 && !allEnabled}
+                disabled={visible.length === 0}
+                onCheckedChange={(checked) =>
+                  onSetEnabled(
+                    visible.map((row) => row.key),
+                    checked,
+                  )
+                }
+                aria-label={t("cp_enable_all_models")}
+              />
+            </TableHead>
+            <TableHead>{t("model_id_label")}</TableHead>
+            <TableHead className="@max-md/cptable:hidden">{t("cp_model_type_column")}</TableHead>
+            <TableHead className="@max-md/cptable:hidden">{t("endpoint_label")}</TableHead>
               <TableHead>{t("cp_model_price_column")}</TableHead>
               <TableHead>{t("default_label")}</TableHead>
               <TableHead>
@@ -262,10 +264,10 @@ export function ModelTable({
                         <span className="text-muted-foreground">{name}</span>
                       )}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="@max-md/cptable:hidden">
                       <span className="text-muted-foreground">{media ? t(MEDIA_LABEL_KEY[media]) : "—"}</span>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="@max-md/cptable:hidden">
                       <TruncatedText text={endpointLabel(row.endpoint)} className="text-subtle-foreground" />
                     </TableCell>
                     <TableCell>
@@ -284,7 +286,8 @@ export function ModelTable({
                         aria-label={t("cp_model_default_named", { model: name })}
                       >
                         {row.is_default && <Check data-icon="inline-start" aria-hidden />}
-                        {t("default_label")}
+                        {/* 窄屏只留图标（勾选=默认），文字桌面端显示 */}
+                        <span className="hidden @min-md/cptable:inline">{t("default_label")}</span>
                       </Toggle>
                     </TableCell>
                     <TableCell>

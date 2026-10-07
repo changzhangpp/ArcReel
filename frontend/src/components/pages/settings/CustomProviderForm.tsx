@@ -457,7 +457,7 @@ export function CustomProviderForm({
 
   return (
     <DetailPane header={header} footer={<SaveBar unit={unit} className="max-w-6xl" />}>
-      <div className="flex flex-col gap-10 px-6 py-6">
+      <div className="flex flex-col gap-10 px-3 py-4 @min-md/page:px-6 @min-md/page:py-6">
         <section aria-labelledby={connectionHeadingId} className="flex max-w-178 flex-col gap-4">
           <h3 id={connectionHeadingId} className="text-base font-medium">
             {t("cp_connection_heading")}
