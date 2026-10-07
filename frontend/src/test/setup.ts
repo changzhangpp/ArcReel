@@ -8,9 +8,9 @@ import i18n, { i18nReady } from "@/i18n";
 await i18nReady;
 await i18n.changeLanguage("zh");
 
-// jsdom 默认不实现 ResizeObserver；@floating-ui/react 的 autoUpdate 会调它来
-// 跟踪 reference / floating 元素尺寸变化。用空 stub 即可，测试只断言可见性、
-// 交互与结构，不验位置像素。
+// jsdom 默认不实现 ResizeObserver；Base UI 弹层定位（经 floating-ui 的 autoUpdate）、
+// Tabs 指示条与 TruncatedText 的截断检测都会调它跟踪尺寸变化。用空 stub 即可，
+// 测试只断言可见性、交互与结构，不验位置像素。
 if (typeof globalThis.ResizeObserver === "undefined") {
   globalThis.ResizeObserver = class {
     constructor(_cb: ResizeObserverCallback) {}
@@ -20,23 +20,11 @@ if (typeof globalThis.ResizeObserver === "undefined") {
   };
 }
 
-// jsdom 不实现 matchMedia；默认按桌面视口匹配（所有 (max-width) 查询均不命中），
-// 让默认渲染走桌面分支。需要断言移动布局的用例自行 spyOn(window, "matchMedia")。
-if (typeof window !== "undefined" && typeof window.matchMedia !== "function") {
-  Object.defineProperty(window, "matchMedia", {
-    configurable: true,
-    writable: true,
-    value: (query: string): MediaQueryList => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      addListener: () => {},
-      removeListener: () => {},
-      dispatchEvent: () => false,
-    }),
-  });
+// jsdom 不实现 matchMedia：useMediaQuery / useCompactTier 等按「无 matchMedia → 桌面标准档」回退。
+// 需要断言移动或紧凑布局的用例自行 vi.stubGlobal("matchMedia", …)，afterEach 里 unstub。
+// jsdom 不实现 scrollIntoView；cmdk（Command）在选中项变化时调用它把选中项滚进视野。
+if (typeof Element !== "undefined" && typeof Element.prototype.scrollIntoView !== "function") {
+  Element.prototype.scrollIntoView = () => {};
 }
 
 if (

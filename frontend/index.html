@@ -9,14 +9,11 @@
     <meta name="description" content="AI 视频创作工作台，统一管理项目、脚本、分镜、视频生成与 Agent 对话。" />
     
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
     <!-- Boot splash: rendered before the JS bundle/CSS arrive so slow starts never show a blank screen.
          React replaces #app-root's children on mount. -->
@@ -30,7 +27,7 @@
         justify-content: center;
         gap: 18px;
         color: #8b8fa3;
-        font-family: Inter, "Noto Sans SC", system-ui, -apple-system, sans-serif;
+        font-family: "Inter Variable", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
       }
       .boot-splash__logo {
         font-size: 15px;
@@ -60,7 +57,7 @@
       }
     </style>
 </head>
-<body class="app-shell font-sans min-h-screen">
+<body>
     <div id="app-root">
       <div class="boot-splash" role="status" aria-live="polite" aria-label="Loading ArcReel">
         <div class="boot-splash__logo">ArcReel</div>
