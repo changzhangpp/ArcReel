@@ -43,8 +43,6 @@ const MEDIA_ORDER = Object.keys(MEDIA_LABEL_KEY) as MediaType[];
 
 type MediaFilter = "all" | MediaType;
 
-const CURRENCY_SYMBOL: Record<string, string> = { USD: "$", CNY: "¥" };
-
 export const DURATION_ERROR_KEY: Record<DurationParseErrorCode, string> = {
   empty_after_split: "supported_durations_err_empty_after_split",
   non_positive: "supported_durations_err_non_positive",
@@ -82,15 +80,6 @@ const EMPTY_TIER_COPY = {
   },
 } as const;
 
-function priceSummary(row: ModelRow, media: MediaType | undefined, t: TFunction): string | null {
-  if (!row.price_input && !row.price_output) return null;
-  const symbol = CURRENCY_SYMBOL[row.currency] ?? `${row.currency} `;
-  const unit = priceLabel(row.endpoint, media ? { [row.endpoint]: media } : {}, t);
-  const input = row.price_input ? `${symbol}${row.price_input}${unit.input}` : null;
-  const output = unit.output && row.price_output ? `${symbol}${row.price_output}${unit.output}` : null;
-  return [input, output].filter(Boolean).join(" · ");
-}
-
 export interface ModelTableProps {
   /** 已按当前协议派生过端点的模型行。 */
   rows: ModelRow[];
@@ -106,8 +95,8 @@ export interface ModelTableProps {
 }
 
 /**
- * 自定义供应商的模型表格：列为启用、模型 ID、类型、调用端点、价格、默认。点击行在下方展开编辑区，
- * 可以同时展开多行；模型多于 5 个时显示搜索框与按类型筛选。
+ * 自定义供应商的模型表格：列为启用、模型 ID、类型、调用端点、默认。点击行在下方展开编辑区，
+ * 可以同时展开多行；模型多于 5 个时显示搜索框与按类型筛选。价格在编辑区内查看与设置。
  */
 export function ModelTable({
   rows,
@@ -188,14 +177,13 @@ export function ModelTable({
 
       <div className="rounded-lg border border-border">
         <Table className="table-fixed">
-        {/* 窄屏隐藏「类型」「调用端点」两列（编辑区里都有），价格列收窄：
+        {/* 窄屏隐藏「类型」「调用端点」两列（编辑区里都有）：
             否则 table-fixed 的固定列宽吃满窄容器，把「模型 ID」压成 0 宽导致表头重叠 */}
         <colgroup>
           <col className="w-8 @min-md/cptable:w-10" />
           <col />
           <col className="w-16 @max-md/cptable:hidden" />
           <col className="@max-md/cptable:hidden" />
-          <col className="w-40 @max-md/cptable:w-28" />
           <col className="w-20 @max-md/cptable:w-11" />
           <col className="w-11" />
         </colgroup>
@@ -218,8 +206,7 @@ export function ModelTable({
             <TableHead>{t("model_id_label")}</TableHead>
             <TableHead className="@max-md/cptable:hidden">{t("cp_model_type_column")}</TableHead>
             <TableHead className="@max-md/cptable:hidden">{t("endpoint_label")}</TableHead>
-              <TableHead>{t("cp_model_price_column")}</TableHead>
-              <TableHead>{t("default_label")}</TableHead>
+            <TableHead>{t("default_label")}</TableHead>
               <TableHead>
                 <span className="sr-only">{t("cp_model_expand_column")}</span>
               </TableHead>
@@ -236,7 +223,6 @@ export function ModelTable({
             {visible.map((row) => {
               const open = expanded.has(row.key);
               const media = endpointToMediaType[row.endpoint];
-              const price = priceSummary(row, media, t);
               const name = row.model_id || t("cp_model_id_missing");
               const editorId = `cp-model-editor-${row.key}`;
               // 点行任意位置展开或收起；行内的勾选框、按钮与输入框各有自己的动作，点它们不切换
@@ -271,13 +257,6 @@ export function ModelTable({
                       <TruncatedText text={endpointLabel(row.endpoint)} className="text-subtle-foreground" />
                     </TableCell>
                     <TableCell>
-                      {price ? (
-                        <TruncatedText text={price} className="text-subtle-foreground tabular-nums" />
-                      ) : (
-                        <span className="text-muted-foreground">{t("cp_model_price_unset")}</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
                       <Toggle
                         variant="outline"
                         size="sm"
@@ -305,7 +284,7 @@ export function ModelTable({
                   </TableRow>
                   {open && (
                     <TableRow>
-                      <TableCell colSpan={7}>
+                      <TableCell colSpan={6}>
                         <div id={editorId} className="max-w-180 px-2 py-4 whitespace-normal">
                           <ModelFields
                             row={row}
