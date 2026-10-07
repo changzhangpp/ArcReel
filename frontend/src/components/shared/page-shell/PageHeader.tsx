@@ -21,7 +21,7 @@ interface PageHeaderProps {
  */
 export function PageHeader({ back, title, subtitle, children, actions }: PageHeaderProps) {
   return (
-    <header className="@container/page-header flex h-14 shrink-0 items-center gap-3 border-b border-border pr-6 pl-3 xl:pr-8">
+    <header className="@container/page-header flex min-h-14 shrink-0 flex-wrap items-center gap-3 border-b border-border pr-6 pl-3 xl:pr-8">
       <div className="flex min-w-0 flex-1 items-center gap-3">
         {back && (
           <>
@@ -37,10 +37,12 @@ export function PageHeader({ back, title, subtitle, children, actions }: PageHea
             <TruncatedText text={title} />
           </h1>
         )}
-        {subtitle && <TruncatedText text={subtitle} className="text-sm text-muted-foreground" />}
+        {subtitle && (
+          <TruncatedText text={subtitle} className="hidden text-sm text-muted-foreground @min-md/page-header:inline" />
+        )}
         {children}
       </div>
-      {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
+      {actions && <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">{actions}</div>}
     </header>
   );
 }
